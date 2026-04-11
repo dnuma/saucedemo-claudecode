@@ -1,0 +1,16 @@
+{
+  "name": "saucedemo-claudecode",
+  "description": "Playwright test automation for Sauce Demo website",
+  "author": {"name": "David Numa", "url": "https://github.com/dnuma/"},
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:report": "playwright show-report",
+    "install:browsers": "playwright install"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.50.0",
+    "dotenv": "^16.0.0"
+  }
+}
