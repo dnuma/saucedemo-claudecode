@@ -24,6 +24,14 @@ class CheckoutOverviewPage extends BasePage {
   }
 
   /**
+   * Returns the prices of all items listed in the order summary
+   * @returns {Promise<string[]>}
+   */
+  async getItemPrices() {
+    return this.cartItems.locator('.inventory_item_price').allTextContents();
+  }
+
+  /**
    * Returns the item subtotal label text (e.g. 'Item total: $29.99')
    * @returns {Promise<string>}
    */

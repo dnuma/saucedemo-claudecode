@@ -5,7 +5,11 @@
       "Bash(npx playwright-cli:*)",
       "Bash(node:*)",
       "Bash(git rm:*)",
-      "Bash(npx playwright:*)"
+      "Bash(npx playwright:*)",
+      "Bash(npm install:*)",
+      "Bash(git -C /e/QA/saucedemo-claudecode status)",
+      "Bash(git -C /e/QA/saucedemo-claudecode log --oneline -5)",
+      "Bash(git:*)"
     ]
   }
 }

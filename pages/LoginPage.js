@@ -31,22 +31,6 @@ class LoginPage extends BasePage {
     await this.passwordInput.fill(password);
     await this.loginButton.click();
   }
-
-  /**
-   * Returns the text content of the error message
-   * @returns {Promise<string>}
-   */
-  async getErrorMessage() {
-    return this.errorMessage.textContent();
-  }
-
-  /**
-   * Returns whether the error message is currently visible
-   * @returns {Promise<boolean>}
-   */
-  async isErrorVisible() {
-    return this.errorMessage.isVisible();
-  }
 }
 
 module.exports = LoginPage;

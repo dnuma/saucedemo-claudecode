@@ -7,25 +7,7 @@ class CheckoutCompletePage extends BasePage {
   constructor(page) {
     super(page);
     this.confirmationHeader = page.locator('.complete-header');
-    this.confirmationText = page.locator('.complete-text');
-    this.ponyExpressImage = page.locator('.pony_express');
     this.backHomeButton = page.locator('[data-test="back-to-products"]');
-  }
-
-  /**
-   * Returns the confirmation header text (e.g. 'Thank you for your order!')
-   * @returns {Promise<string>}
-   */
-  async getConfirmationHeader() {
-    return this.confirmationHeader.textContent();
-  }
-
-  /**
-   * Returns the confirmation body text displayed below the header
-   * @returns {Promise<string>}
-   */
-  async getConfirmationText() {
-    return this.confirmationText.textContent();
   }
 
   /**

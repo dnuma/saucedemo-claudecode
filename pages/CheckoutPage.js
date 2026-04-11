@@ -43,22 +43,6 @@ class CheckoutPage extends BasePage {
   async cancel() {
     await this.cancelButton.click();
   }
-
-  /**
-   * Returns the text content of the validation error message
-   * @returns {Promise<string>}
-   */
-  async getErrorMessage() {
-    return this.errorMessage.textContent();
-  }
-
-  /**
-   * Returns whether the validation error message is currently visible
-   * @returns {Promise<boolean>}
-   */
-  async isErrorVisible() {
-    return this.errorMessage.isVisible();
-  }
 }
 
 module.exports = CheckoutPage;

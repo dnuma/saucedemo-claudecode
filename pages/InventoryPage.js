@@ -8,11 +8,12 @@ class InventoryPage extends BasePage {
     super(page);
     this.title = page.locator('.title');
     this.inventoryItems = page.locator('.inventory_item');
-    this.sortDropdown = page.locator('[data-test="product_sort_container"]');
+    this.sortDropdown = page.locator('.product_sort_container');
     this.cartLink = page.locator('.shopping_cart_link');
     this.cartBadge = page.locator('.shopping_cart_badge');
     this.burgerMenuButton = page.locator('#react-burger-menu-btn');
     this.logoutLink = page.locator('#logout_sidebar_link');
+    this.resetAppStateLink = page.locator('#reset_sidebar_link');
   }
 
   /**
@@ -21,14 +22,6 @@ class InventoryPage extends BasePage {
    */
   async navigate() {
     await super.navigate('/inventory.html');
-  }
-
-  /**
-   * Returns the total number of product items on the page
-   * @returns {Promise<number>}
-   */
-  async getInventoryItemCount() {
-    return this.inventoryItems.count();
   }
 
   /**
@@ -55,16 +48,6 @@ class InventoryPage extends BasePage {
   async addItemToCartByName(name) {
     const item = this.inventoryItems.filter({ hasText: name });
     await item.locator('[data-test^="add-to-cart"]').click();
-  }
-
-  /**
-   * Removes a product from the cart by its name
-   * @param {string} name - The name of the product to remove
-   * @returns {Promise<void>}
-   */
-  async removeItemFromCartByName(name) {
-    const item = this.inventoryItems.filter({ hasText: name });
-    await item.locator('[data-test^="remove"]').click();
   }
 
   /**
@@ -110,6 +93,15 @@ class InventoryPage extends BasePage {
   async logout() {
     await this.burgerMenuButton.click();
     await this.logoutLink.click();
+  }
+
+  /**
+   * Opens the burger menu and clicks Reset App State, clearing the cart
+   * @returns {Promise<void>}
+   */
+  async resetAppState() {
+    await this.burgerMenuButton.click();
+    await this.resetAppStateLink.click();
   }
 }
 

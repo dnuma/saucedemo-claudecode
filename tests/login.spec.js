@@ -53,16 +53,14 @@ test.describe('Login test cases', () => {
     expect.soft(elapsed).toBeGreaterThan(TIMEOUTS.PERFORMANCE_GLITCH_MIN_DELAY); // artificial delay is ~5 s
   });
 
-  // Error user: login succeeds, but cart interactions are silently broken post-login
-  test('error_user - login succeeds but adding items to cart has no effect', async ({ page }) => {
+  // Error user: login succeeds — broken behaviour surfaces during checkout interactions, not at login
+  test('error_user - login succeeds and inventory page loads', async ({ page }) => {
     await loginPage.login(process.env.ERROR_USER, process.env.PASSWORD);
 
     const inventoryPage = new InventoryPage(page);
     await expect.soft(page).toHaveURL(URLS.INVENTORY);
-
-    await inventoryPage.addItemToCartByName(INVENTORY.PRODUCT_BACKPACK);
-    // Cart badge does not update for error_user — the click is silently ignored
-    await expect.soft(inventoryPage.cartBadge).not.toBeVisible();
+    await expect.soft(inventoryPage.title).toHaveText(MESSAGES.INVENTORY_TITLE);
+    await expect.soft(inventoryPage.inventoryItems).toHaveCount(INVENTORY.TOTAL_ITEMS);
   });
 
   // Visual user: login succeeds, but each product displays a mismatched image

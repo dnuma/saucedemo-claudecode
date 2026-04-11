@@ -8,7 +8,6 @@ class CartPage extends BasePage {
     super(page);
     this.title = page.locator('.title');
     this.cartItems = page.locator('.cart_item');
-    this.continueShoppingButton = page.locator('[data-test="continue-shopping"]');
     this.checkoutButton = page.locator('[data-test="checkout"]');
   }
 
@@ -18,14 +17,6 @@ class CartPage extends BasePage {
    */
   async navigate() {
     await super.navigate('/cart.html');
-  }
-
-  /**
-   * Returns the number of items currently in the cart
-   * @returns {Promise<number>}
-   */
-  async getCartItemCount() {
-    return this.cartItems.count();
   }
 
   /**
@@ -52,14 +43,6 @@ class CartPage extends BasePage {
   async removeItemByName(name) {
     const item = this.cartItems.filter({ hasText: name });
     await item.locator('[data-test^="remove"]').click();
-  }
-
-  /**
-   * Clicks the Continue Shopping button to return to the inventory page
-   * @returns {Promise<void>}
-   */
-  async continueShopping() {
-    await this.continueShoppingButton.click();
   }
 
   /**

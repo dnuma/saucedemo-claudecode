@@ -7,38 +7,11 @@ class ProductPage extends BasePage {
   constructor(page) {
     super(page);
     this.productName = page.locator('.inventory_details_name');
-    this.productDescription = page.locator('.inventory_details_desc');
     this.productPrice = page.locator('.inventory_details_price');
-    this.productImage = page.locator('.inventory_details_img');
     this.addToCartButton = page.locator('[data-test^="add-to-cart"]');
     this.removeButton = page.locator('[data-test^="remove"]');
     this.backButton = page.locator('[data-test="back-to-products"]');
-    this.cartLink = page.locator('.shopping_cart_link');
     this.cartBadge = page.locator('.shopping_cart_badge');
-  }
-
-  /**
-   * Returns the name of the product displayed on the detail page
-   * @returns {Promise<string>}
-   */
-  async getProductName() {
-    return this.productName.textContent();
-  }
-
-  /**
-   * Returns the description of the product displayed on the detail page
-   * @returns {Promise<string>}
-   */
-  async getProductDescription() {
-    return this.productDescription.textContent();
-  }
-
-  /**
-   * Returns the price of the product displayed on the detail page
-   * @returns {Promise<string>}
-   */
-  async getProductPrice() {
-    return this.productPrice.textContent();
   }
 
   /**
@@ -63,14 +36,6 @@ class ProductPage extends BasePage {
    */
   async goBackToInventory() {
     await this.backButton.click();
-  }
-
-  /**
-   * Clicks the cart icon to navigate to the cart page
-   * @returns {Promise<void>}
-   */
-  async openCart() {
-    await this.cartLink.click();
   }
 }
 

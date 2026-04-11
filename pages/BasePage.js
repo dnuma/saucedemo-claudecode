@@ -14,22 +14,6 @@ class BasePage {
   async navigate(path = '/') {
     await this.page.goto(path);
   }
-
-  /**
-   * Returns the title of the current page
-   * @returns {Promise<string>}
-   */
-  async getTitle() {
-    return this.page.title();
-  }
-
-  /**
-   * Returns the full URL of the current page
-   * @returns {Promise<string>}
-   */
-  async getURL() {
-    return this.page.url();
-  }
 }
 
 module.exports = BasePage;
