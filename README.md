@@ -52,22 +52,21 @@ npm run test:ui                                       # Playwright UI mode
 npx playwright test tests/login.spec.js              # single spec file
 npx playwright test --grep "sort"                    # filter by test title
 npx playwright test tests/screenshots.spec.js --update-snapshots  # refresh visual baselines
-npm run test:report                                   # open last HTML report
 ```
 
 ---
 
 ## Test Coverage
 
-| Spec | Description | Tests |
-| :--- | :--- | :---: |
-| `login.spec.js` | Login behaviour for all 6 SauceDemo users | 6 |
-| `screenshots.spec.js` | Visual regression baselines per user | 6 |
-| `checkout.spec.js` | Happy path + edge cases (empty cart, validation, cancel, refresh) | 16 |
-| `inventory.spec.js` | Sorting (A→Z, Z→A, price) and cart badge | 6 |
-| `product.spec.js` | Product detail page — navigation, cart interactions | 4 |
-| `navigation.spec.js` | Cart persistence, logout, reset state, access control | 5 |
-| **Total** | | **43** |
+| Spec                  | Description                                                       | Tests  |
+| :-------------------- | :---------------------------------------------------------------- | :----: |
+| `login.spec.js`       | Login behaviour for all 6 SauceDemo users                         |   6    |
+| `screenshots.spec.js` | Visual regression baselines per user                              |   6    |
+| `checkout.spec.js`    | Happy path + edge cases (empty cart, validation, cancel, refresh) |   16   |
+| `inventory.spec.js`   | Sorting (A→Z, Z→A, price) and cart badge                          |   6    |
+| `product.spec.js`     | Product detail page — navigation, cart interactions               |   4    |
+| `navigation.spec.js`  | Cart persistence, logout, reset state, access control             |   5    |
+| **Total**             |                                                                   | **43** |
 
 ---
 
