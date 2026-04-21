@@ -1,25 +1,35 @@
-const { test, expect } = require('@playwright/test');
-const { faker } = require('@faker-js/faker');
-const {
+import { test, expect, Page } from '@playwright/test';
+import { faker } from '@faker-js/faker';
+import {
   LoginPage,
   InventoryPage,
   CartPage,
   CheckoutPage,
   CheckoutOverviewPage,
   CheckoutCompletePage,
-} = require('../pages');
-const { MESSAGES, URLS, INVENTORY } = require('./constants');
+} from '../pages';
+import { MESSAGES, URLS, INVENTORY } from './constants';
 
-/** Strips currency symbols and whitespace, returning a float. */
-const parsePrice = (text) => parseFloat(text.replace(/[^0-9.]/g, ''));
+interface CartItem {
+  name: string;
+  price: number;
+}
+
+interface ShippingInfo {
+  firstName: string;
+  lastName: string;
+  postalCode: string;
+}
+
+const parsePrice = (text: string): number => parseFloat(text.replace(/[^0-9.]/g, ''));
 
 // ─── Happy Path ───────────────────────────────────────────────────────────────
 // Serial mode keeps a single browser session across all tests so cart and
 // checkout state is preserved from one test to the next.
 test.describe.serial('Checkout - Happy Path', () => {
-  let sharedPage;
-  let cartItems = []; // [{ name: string, price: number }]
-  let shippingInfo;
+  let sharedPage!: Page;
+  let cartItems: CartItem[] = [];
+  let shippingInfo!: ShippingInfo;
 
   test.beforeAll(async ({ browser }) => {
     sharedPage = await browser.newPage();
@@ -27,7 +37,7 @@ test.describe.serial('Checkout - Happy Path', () => {
     // Login
     const loginPage = new LoginPage(sharedPage);
     await loginPage.navigate();
-    await loginPage.login(process.env.STANDARD_USER, process.env.PASSWORD);
+    await loginPage.login(process.env.STANDARD_USER!, process.env.PASSWORD!);
     await sharedPage.waitForURL(URLS.INVENTORY);
 
     // Fetch every product name and price from the inventory
@@ -145,15 +155,11 @@ test.describe('Checkout - Edge Cases', () => {
   test.beforeEach(async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.navigate();
-    await loginPage.login(process.env.STANDARD_USER, process.env.PASSWORD);
+    await loginPage.login(process.env.STANDARD_USER!, process.env.PASSWORD!);
     await page.waitForURL(URLS.INVENTORY);
   });
 
-  /**
-   * Reusable helper: adds one item to the cart then drives through checkout
-   * step 1 with random shipping data, landing on the overview page.
-   */
-  async function goToOverview(page, itemName) {
+  async function goToOverview(page: Page, itemName: string): Promise<CheckoutOverviewPage> {
     const inventoryPage = new InventoryPage(page);
     await inventoryPage.addItemToCartByName(itemName);
     await inventoryPage.openCart();

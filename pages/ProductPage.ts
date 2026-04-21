@@ -1,10 +1,15 @@
-const BasePage = require('./BasePage');
+import { Page, Locator } from '@playwright/test';
+import BasePage from './BasePage';
 
 class ProductPage extends BasePage {
-  /**
-   * @param {import('@playwright/test').Page} page - Playwright page instance
-   */
-  constructor(page) {
+  readonly productName: Locator;
+  readonly productPrice: Locator;
+  readonly addToCartButton: Locator;
+  readonly removeButton: Locator;
+  readonly backButton: Locator;
+  readonly cartBadge: Locator;
+
+  constructor(page: Page) {
     super(page);
     this.productName = page.locator('.inventory_details_name');
     this.productPrice = page.locator('.inventory_details_price');
@@ -14,29 +19,17 @@ class ProductPage extends BasePage {
     this.cartBadge = page.locator('.shopping_cart_badge');
   }
 
-  /**
-   * Clicks the Add to Cart button on the product detail page
-   * @returns {Promise<void>}
-   */
-  async addToCart() {
+  async addToCart(): Promise<void> {
     await this.addToCartButton.click();
   }
 
-  /**
-   * Clicks the Remove button to remove the product from the cart
-   * @returns {Promise<void>}
-   */
-  async removeFromCart() {
+  async removeFromCart(): Promise<void> {
     await this.removeButton.click();
   }
 
-  /**
-   * Clicks the back button to return to the inventory page
-   * @returns {Promise<void>}
-   */
-  async goBackToInventory() {
+  async goBackToInventory(): Promise<void> {
     await this.backButton.click();
   }
 }
 
-module.exports = ProductPage;
+export default ProductPage;

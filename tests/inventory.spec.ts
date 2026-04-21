@@ -1,15 +1,15 @@
-const { test, expect } = require('@playwright/test');
-const { faker } = require('@faker-js/faker');
-const { LoginPage, InventoryPage } = require('../pages');
-const { URLS, INVENTORY, SORT } = require('./constants');
+import { test, expect } from '@playwright/test';
+import { faker } from '@faker-js/faker';
+import { LoginPage, InventoryPage } from '../pages';
+import { URLS, INVENTORY, SORT } from './constants';
 
-const parsePrice = (text) => parseFloat(text.replace(/[^0-9.]/g, ''));
+const parsePrice = (text: string): number => parseFloat(text.replace(/[^0-9.]/g, ''));
 
 test.describe('Inventory', () => {
   test.beforeEach(async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.navigate();
-    await loginPage.login(process.env.STANDARD_USER, process.env.PASSWORD);
+    await loginPage.login(process.env.STANDARD_USER!, process.env.PASSWORD!);
     await page.waitForURL(URLS.INVENTORY);
   });
 
