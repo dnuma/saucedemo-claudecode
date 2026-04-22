@@ -6,8 +6,16 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "lib": ["ESNext"],
-    "types": ["node"]
+    "lib": ["ESNext", "DOM"],
+    "types": ["node"],
+    "baseUrl": ".",
+    "paths": {
+      "@pages": ["src/pages/index.ts"],
+      "@pages/*": ["src/pages/*"],
+      "@lib/*": ["src/lib/*"],
+      "@fixtures/*": ["src/fixtures/*"],
+      "@interfaces/*": ["src/interfaces/*"]
+    }
   },
   "include": ["**/*.ts"],
   "exclude": ["node_modules"]

@@ -1,10 +1,10 @@
-import { test, expect } from '@playwright/test';
-import { faker } from '@faker-js/faker';
-import { LoginPage, InventoryPage, CartPage, ProductPage } from '../pages';
-import { MESSAGES, URLS } from './constants';
+import { test, expect } from "@playwright/test";
+import { faker } from "@faker-js/faker";
+import { LoginPage, InventoryPage, CartPage, ProductPage } from "../pages";
+import { MESSAGES, URLS } from "../lib/constants";
 
 // ─── Authenticated navigation ─────────────────────────────────────────────────
-test.describe('Navigation', () => {
+test.describe("Navigation", () => {
   test.beforeEach(async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.navigate();
@@ -12,7 +12,9 @@ test.describe('Navigation', () => {
     await page.waitForURL(URLS.INVENTORY);
   });
 
-  test('cart items persist after navigating to a product page and back', async ({ page }) => {
+  test("cart items persist after navigating to a product page and back", async ({
+    page,
+  }) => {
     const inventoryPage = new InventoryPage(page);
     const names = await inventoryPage.getItemNames();
     const [itemToAdd, itemToVisit] = faker.helpers.arrayElements(names, 2);
@@ -30,7 +32,9 @@ test.describe('Navigation', () => {
     expect.soft(cartNames).toContain(itemToAdd);
   });
 
-  test('logout clears the session and redirects to the login page', async ({ page }) => {
+  test("logout clears the session and redirects to the login page", async ({
+    page,
+  }) => {
     const inventoryPage = new InventoryPage(page);
     await inventoryPage.logout();
 
@@ -40,10 +44,13 @@ test.describe('Navigation', () => {
     await expect.soft(loginPage.usernameInput).toBeVisible();
   });
 
-  test('reset app state empties the cart', async ({ page }) => {
+  test("reset app state empties the cart", async ({ page }) => {
     const inventoryPage = new InventoryPage(page);
     const names = await inventoryPage.getItemNames();
-    const selected = faker.helpers.arrayElements(names, faker.number.int({ min: 1, max: 3 }));
+    const selected = faker.helpers.arrayElements(
+      names,
+      faker.number.int({ min: 1, max: 3 }),
+    );
 
     for (const name of selected) {
       await inventoryPage.addItemToCartByName(name);
@@ -58,22 +65,30 @@ test.describe('Navigation', () => {
 });
 
 // ─── Access control ───────────────────────────────────────────────────────────
-test.describe('Access Control', () => {
-  test('accessing the inventory page without logging in redirects to the login page', async ({ page }) => {
-    await page.goto('/inventory.html');
+test.describe("Access Control", () => {
+  test("accessing the inventory page without logging in redirects to the login page", async ({
+    page,
+  }) => {
+    await page.goto("/inventory.html");
 
     await expect.soft(page).not.toHaveURL(URLS.INVENTORY);
     const loginPage = new LoginPage(page);
     await expect.soft(loginPage.loginButton).toBeVisible();
-    await expect.soft(loginPage.errorMessage).toContainText(MESSAGES.ACCESS_DENIED_INVENTORY);
+    await expect
+      .soft(loginPage.errorMessage)
+      .toContainText(MESSAGES.ACCESS_DENIED_INVENTORY);
   });
 
-  test('accessing the cart page without logging in redirects to the login page', async ({ page }) => {
-    await page.goto('/cart.html');
+  test("accessing the cart page without logging in redirects to the login page", async ({
+    page,
+  }) => {
+    await page.goto("/cart.html");
 
     await expect.soft(page).not.toHaveURL(URLS.CART);
     const loginPage = new LoginPage(page);
     await expect.soft(loginPage.loginButton).toBeVisible();
-    await expect.soft(loginPage.errorMessage).toContainText(MESSAGES.ACCESS_DENIED_CART);
+    await expect
+      .soft(loginPage.errorMessage)
+      .toContainText(MESSAGES.ACCESS_DENIED_CART);
   });
 });

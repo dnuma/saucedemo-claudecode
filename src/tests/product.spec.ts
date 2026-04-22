@@ -1,9 +1,9 @@
-import { test, expect } from '@playwright/test';
-import { faker } from '@faker-js/faker';
-import { LoginPage, InventoryPage, ProductPage } from '../pages';
-import { URLS } from './constants';
+import { test, expect } from "@playwright/test";
+import { faker } from "@faker-js/faker";
+import { LoginPage, InventoryPage, ProductPage } from "../pages";
+import { URLS } from "../lib/constants";
 
-test.describe('Product Detail Page', () => {
+test.describe("Product Detail Page", () => {
   test.beforeEach(async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.navigate();
@@ -11,7 +11,9 @@ test.describe('Product Detail Page', () => {
     await page.waitForURL(URLS.INVENTORY);
   });
 
-  test('clicking a product navigates to its detail page with matching name and price', async ({ page }) => {
+  test("clicking a product navigates to its detail page with matching name and price", async ({
+    page,
+  }) => {
     const inventoryPage = new InventoryPage(page);
     const names = await inventoryPage.getItemNames();
     const prices = await inventoryPage.getItemPrices();
@@ -25,7 +27,9 @@ test.describe('Product Detail Page', () => {
     await expect.soft(productPage.productPrice).toHaveText(prices[i]);
   });
 
-  test('adding to cart from the detail page updates the cart badge', async ({ page }) => {
+  test("adding to cart from the detail page updates the cart badge", async ({
+    page,
+  }) => {
     const inventoryPage = new InventoryPage(page);
     const names = await inventoryPage.getItemNames();
     await inventoryPage.clickItemByName(faker.helpers.arrayElement(names));
@@ -33,12 +37,14 @@ test.describe('Product Detail Page', () => {
     const productPage = new ProductPage(page);
     await productPage.addToCart();
 
-    await expect.soft(productPage.cartBadge).toHaveText('1');
+    await expect.soft(productPage.cartBadge).toHaveText("1");
     await expect.soft(productPage.removeButton).toBeVisible();
     await expect.soft(productPage.addToCartButton).not.toBeVisible();
   });
 
-  test('removing from cart on the detail page clears the cart badge', async ({ page }) => {
+  test("removing from cart on the detail page clears the cart badge", async ({
+    page,
+  }) => {
     const inventoryPage = new InventoryPage(page);
     const names = await inventoryPage.getItemNames();
     await inventoryPage.clickItemByName(faker.helpers.arrayElement(names));
@@ -52,7 +58,9 @@ test.describe('Product Detail Page', () => {
     await expect.soft(productPage.removeButton).not.toBeVisible();
   });
 
-  test('back to products button returns to the inventory page', async ({ page }) => {
+  test("back to products button returns to the inventory page", async ({
+    page,
+  }) => {
     const inventoryPage = new InventoryPage(page);
     const names = await inventoryPage.getItemNames();
     await inventoryPage.clickItemByName(faker.helpers.arrayElement(names));

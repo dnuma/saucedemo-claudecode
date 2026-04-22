@@ -9,7 +9,8 @@
       "Bash(npm install:*)",
       "Bash(git -C /e/QA/saucedemo-claudecode status)",
       "Bash(git -C /e/QA/saucedemo-claudecode log --oneline -5)",
-      "Bash(git:*)"
+      "Bash(git:*)",
+      "Bash(npx tsc *)"
     ]
   }
 }
