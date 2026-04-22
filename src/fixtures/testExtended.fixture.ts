@@ -1,49 +1,36 @@
-import { test as base, Page } from "@playwright/test";
-import {
-  LoginPage,
-  InventoryPage,
-  ProductPage,
-  CartPage,
-  CheckoutPage,
-  CheckoutOverviewPage,
-  CheckoutCompletePage,
-} from "@pages";
+import { test as base } from "@playwright/test";
 
 type Fixtures = {
   password: string;
-  loginPage: LoginPage;
-  inventoryPage: InventoryPage;
-  productPage: ProductPage;
-  cartPage: CartPage;
-  checkoutPage: CheckoutPage;
-  checkoutOverviewPage: CheckoutOverviewPage;
-  checkoutCompletePage: CheckoutCompletePage;
+  standardUser: string;
+  lockedOutUser: string;
+  problemUser: string;
+  performanceGlitchUser: string;
+  errorUser: string;
+  visualUser: string;
 };
 
 export const test = base.extend<Fixtures>({
   password: async ({}, use) => {
     await use(process.env.PASSWORD!);
   },
-  loginPage: async ({ page }, use) => {
-    await use(new LoginPage(page));
+  standardUser: async ({}, use) => {
+    await use(process.env.STANDARD_USER!);
   },
-  inventoryPage: async ({ page }, use) => {
-    await use(new InventoryPage(page));
+  lockedOutUser: async ({}, use) => {
+    await use(process.env.LOCKED_OUT_USER!);
   },
-  productPage: async ({ page }, use) => {
-    await use(new ProductPage(page));
+  problemUser: async ({}, use) => {
+    await use(process.env.PROBLEM_USER!);
   },
-  cartPage: async ({ page }, use) => {
-    await use(new CartPage(page));
+  performanceGlitchUser: async ({}, use) => {
+    await use(process.env.PERFORMANCE_GLITCH_USER!);
   },
-  checkoutPage: async ({ page }, use) => {
-    await use(new CheckoutPage(page));
+  errorUser: async ({}, use) => {
+    await use(process.env.ERROR_USER!);
   },
-  checkoutOverviewPage: async ({ page }, use) => {
-    await use(new CheckoutOverviewPage(page));
-  },
-  checkoutCompletePage: async ({ page }, use) => {
-    await use(new CheckoutCompletePage(page));
+  visualUser: async ({}, use) => {
+    await use(process.env.VISUAL_USER!);
   },
 });
 
