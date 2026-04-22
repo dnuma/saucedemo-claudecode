@@ -128,7 +128,6 @@ Things that would be automated given more time:
 - **Authenticated state via `storageState`** — save a logged-in session to disk once and reuse it across all tests that don't specifically test login, removing the `loginPage.navigate() / login()` boilerplate from every `beforeEach`.
 - **`error_user` cart interaction tests** — this user's add-to-cart is silently broken; dedicated tests should assert that the cart badge does *not* update and surface the failure explicitly rather than relying on the happy-path tests to catch it incidentally.
 - **`problem_user` and `visual_user` checkout flows** — verify that broken images don't block the purchase flow and that prices/totals remain correct despite the visual defects.
-- **Accessibility audit** — integrate [`@axe-core/playwright`](https://github.com/dequelabs/axe-core-npm) and run an a11y scan on the inventory, cart, and checkout pages.
 - **Performance assertions on `performance_glitch_user`** — capture `page.metrics()` or the Playwright `trace` timing data to assert an upper bound on login delay, not just a lower bound.
 - **CI/CD pipeline** — a GitHub Actions workflow that installs dependencies, runs the full suite in headless mode, and uploads the HTML report as an artifact on every push to `main`.
 - **More visual regression coverage** — screenshots currently only capture the inventory page per user; extend to cart, checkout overview, and the order-complete screen.
